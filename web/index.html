@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛡️ Cyber Intelligence & Bug Bounty Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Fira Code"', 'monospace'],
+          },
+          colors: {
+            cyber: {
+              dark: '#080c14',
+              card: '#0d1322',
+              cardBorder: '#1e293b',
+              accent: '#06b6d4',
+              neonGreen: '#10b981',
+              neonRed: '#f43f5e',
+              neonYellow: '#f59e0b',
+              neonPurple: '#a855f7'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #080c14;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #0d1322;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+
+<body class="text-slate-200 font-sans min-h-screen flex flex-col custom-scrollbar">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-cyber-dark/90 border-b border-cyber-cardBorder px-4 lg:px-8 py-3.5">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      
+      <!-- Brand & Status -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-emerald-500 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20">
+          <i class="fa-solid fa-shield-halved text-xl"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+              CYBER INTEL <span class="text-cyan-400 font-extrabold">&amp; BUG BOUNTY HUB</span>
+            </h1>
+            <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> LIVE
+            </span>
+            <span class="px-2 py-0.5 text-[11px] font-mono font-semibold rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 flex items-center gap-1 hidden md:flex" title="Port 8888 đang mở trên toàn bộ mạng nội bộ (0.0.0.0:8888)">
+              <i class="fa-solid fa-network-wired text-[10px]"></i> Port 8888 (0.0.0.0 Mở Mạng Nội Bộ)
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 flex items-center gap-2">
+            <span><i class="fa-solid fa-clock text-slate-500 mr-1"></i>Lịch chạy: <strong>2 lần/ngày</strong> (08:00 AM &amp; 20:00 PM GMT+7)</span>
+            <span class="text-slate-600">•</span>
+            <span id="last-sync-time">Cập nhật lúc: Đang tải...</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Action Controls -->
+      <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+        <div class="relative flex-1 sm:w-64">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-sm"></i>
+          <input type="text" id="global-search" placeholder="Tìm CVE, CMS, Bug Bounty..." 
+                 class="w-full bg-cyber-card border border-cyber-cardBorder rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all">
+        </div>
+        <button id="btn-sync" onclick="triggerManualSync()" 
+                class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-semibold rounded-lg shadow-md shadow-cyan-500/20 flex items-center gap-2 transition-all active:scale-95 whitespace-nowrap">
+          <i class="fa-solid fa-arrows-rotate" id="sync-icon"></i>
+          <span id="sync-btn-text">Cập Nhật Ngay</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-6">
+
+    <!-- METRICS OVERVIEW -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
+      
+      <div class="bg-cyber-card border border-cyber-cardBorder rounded-xl p-4 relative overflow-hidden group hover:border-red-500/50 transition-all">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">Actionable CVEs</span>
+          <div class="w-8 h-8 rounded-lg bg-red-500/10 text-red-400 flex items-center justify-center text-sm">
+            <i class="fa-solid fa-bug"></i>
+          </div>
+        </div>
+        <div class="flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-white font-mono" id="stat-cve-count">28</span>
+          <span class="text-xs font-semibold px-1.5 py-0.5 rounded bg-red-500/20 text-red-400">Top PoC</span>
+        </div>
+        <div class="text-[11px] text-slate-400 mt-1.5 flex items-center gap-1">
+          <i class="fa-solid fa-circle-check text-emerald-400"></i> Có sẵn Nuclei templates
+        </div>
+      </div>
+
+      <div class="bg-cyber-card border border-cyber-cardBorder rounded-xl p-4 relative overflow-hidden group hover:border-cyan-500/50 transition-all">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">HackerOne</span>
+          <div class="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-sm font-bold">
+            H1
+          </div>
+        </div>
+        <div class="flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-white font-mono" id="stat-h1-count">60</span>
+          <span class="text-xs text-slate-400">Reports</span>
+        </div>
+        <div class="text-[11px] text-slate-400 mt-1.5 flex items-center gap-1">
+          <i class="fa-solid fa-bolt text-amber-400"></i> 10 Mới + 50 Top Upvotes
+        </div>
+      </div>
+
+      <div class="bg-cyber-card border border-cyber-cardBorder rounded-xl p-4 relative overflow-hidden group hover:border-orange-500/50 transition-all">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">Bugcrowd</span>
+          <div class="w-8 h-8 rounded-lg bg-orange-500/10 text-orange-400 flex items-center justify-center text-sm font-bold">
+            BC
+          </div>
+        </div>
+        <div class="flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-white font-mono" id="stat-bc-count">6</span>
+          <span class="text-xs text-slate-400">Research</span>
+        </div>
+        <div class="text-[11px] text-slate-400 mt-1.5 flex items-center gap-1">
+          <i class="fa-solid fa-newspaper text-orange-400"></i> Kỹ thuật &amp; Phân tích
+        </div>
+      </div>
+
+      <div class="bg-cyber-card border border-cyber-cardBorder rounded-xl p-4 relative overflow-hidden group hover:border-emerald-500/50 transition-all">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">YesWeHack</span>
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-sm font-bold">
+            YWH
+          </div>
+        </div>
+        <div class="flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-white font-mono" id="stat-ywh-count">2</span>
+          <span class="text-xs text-slate-400">Writeups</span>
+        </div>
+        <div class="text-[11px] text-slate-400 mt-1.5 flex items-center gap-1">
+          <i class="fa-solid fa-flag-checkered text-emerald-400"></i> Live Hacking Events
+        </div>
+      </div>
+
+      <div class="bg-cyber-card border border-cyber-cardBorder rounded-xl p-4 relative overflow-hidden group hover:border-purple-500/50 transition-all col-span-2 sm:col-span-1">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">AI Security</span>
+          <div class="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center text-sm">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+        </div>
+        <div class="flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-white font-mono" id="stat-ai-count">6</span>
+          <span class="text-xs text-slate-400">Alerts</span>
+        </div>
+        <div class="text-[11px] text-slate-400 mt-1.5 flex items-center gap-1">
+          <i class="fa-solid fa-brain text-purple-400"></i> Prompt Injection &amp; LLM
+        </div>
+      </div>
+
+    </div>
+
+    <!-- NAVIGATION TABS -->
+    <div class="flex items-center gap-2 border-b border-cyber-cardBorder pb-2 overflow-x-auto custom-scrollbar">
+      <button onclick="switchTab('tab-cves')" id="btn-tab-cves" 
+              class="tab-btn px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+        <i class="fa-solid fa-fire text-red-400"></i> Actionable CVEs &amp; Hướng Dẫn Sử Dụng
+      </button>
+      <button onclick="switchTab('tab-disclosures')" id="btn-tab-disclosures" 
+              class="tab-btn px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/40">
+        <i class="fa-solid fa-bullseye text-orange-400"></i> Bug Bounty Disclosures (H1/BC/YWH)
+      </button>
+      <button onclick="switchTab('tab-hacking')" id="btn-tab-hacking" 
+              class="tab-btn px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/40">
+        <i class="fa-solid fa-globe text-blue-400"></i> Tin Tức Hacking &amp; Threat Intel
+      </button>
+      <button onclick="switchTab('tab-ai')" id="btn-tab-ai" 
+              class="tab-btn px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/40">
+        <i class="fa-solid fa-microchip text-purple-400"></i> AI Security &amp; LLMs
+      </button>
+      <button onclick="switchTab('tab-checklist')" id="btn-tab-checklist" 
+              class="tab-btn px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/40">
+        <i class="fa-solid fa-list-check text-emerald-400"></i> Action Checklist
+      </button>
+      <button onclick="switchTab('tab-reports')" id="btn-tab-reports" 
+              class="tab-btn px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/40">
+        <i class="fa-solid fa-book-bookmark text-amber-400"></i> Lịch Sử Báo Cáo
+      </button>
+    </div>
+
+    <!-- TAB 1: ACTIONABLE CVES & BẢNG HƯỚNG DẪN SỬ DỤNG -->
+    <section id="tab-cves" class="space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-cyber-card border border-cyber-cardBorder rounded-xl p-4">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-crosshairs text-red-400"></i>
+            Bảng Hướng Dẫn Sử Dụng &amp; Khai Thác Thực Chiến Các CVE Mới
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            Các CVE được sàng lọc nghiêm ngặt: CVSS &gt;= 7.0, Unauthenticated / Web phổ biến, có sẵn lệnh quét Nuclei và mã khai thác thực nghiệm.
+          </p>
+        </div>
+        <div class="flex items-center gap-1.5 text-xs flex-wrap">
+          <span class="text-slate-400 mr-1">Lọc nhanh:</span>
+          <button onclick="filterCVEs('all')" class="cve-filter-btn px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300 font-medium">Tất cả</button>
+          <button onclick="filterCVEs('critical')" class="cve-filter-btn px-2.5 py-1 rounded bg-slate-800 text-slate-400 hover:text-white">Critical 9.0+</button>
+          <button onclick="filterCVEs('java')" class="cve-filter-btn px-2.5 py-1 rounded bg-slate-800 text-amber-400 hover:text-white"><i class="fa-brands fa-java mr-1"></i>Java4Shell</button>
+          <button onclick="filterCVEs('ssh')" class="cve-filter-btn px-2.5 py-1 rounded bg-slate-800 text-sky-400 hover:text-white"><i class="fa-solid fa-terminal mr-1"></i>SSHole (ssh2shell)</button>
+          <button onclick="filterCVEs('upload')" class="cve-filter-btn px-2.5 py-1 rounded bg-slate-800 text-rose-400 hover:text-white"><i class="fa-solid fa-file-image mr-1"></i>Upload2Shell (Ảnh/PDF)</button>
+          <button onclick="filterCVEs('web')" class="cve-filter-btn px-2.5 py-1 rounded bg-slate-800 text-slate-400 hover:text-white">Web &amp; CMS</button>
+          <button onclick="filterCVEs('ai')" class="cve-filter-btn px-2.5 py-1 rounded bg-slate-800 text-slate-400 hover:text-white">AI Platform</button>
+        </div>
+      </div>
+
+      <!-- Actionable CVE Cards Container -->
+      <div id="cve-cards-list" class="space-y-4">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- TAB 2: BUG BOUNTY DISCLOSURES -->
+    <section id="tab-disclosures" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-cyber-card border border-cyber-cardBorder rounded-xl p-4">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-award text-yellow-400"></i>
+            Kho Báo Cáo Disclosed Bug Bounty (10 Mới Nhất + Top 50 Phổ Biến)
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">Tự động nạp 10 báo cáo công khai mới nhất cùng 50 báo cáo danh tiếng nhất từ HackerOne, Bugcrowd &amp; YesWeHack.</p>
+        </div>
+        
+        <div class="flex items-center gap-1.5 text-xs flex-wrap">
+          <span class="text-slate-400 mr-1">Lọc:</span>
+          <button onclick="filterDisclosuresType('all')" class="disclo-filter-btn px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300 font-medium">Tất cả (68)</button>
+          <button onclick="filterDisclosuresType('newest')" class="disclo-filter-btn px-2.5 py-1 rounded bg-slate-800 text-amber-400 hover:text-white"><i class="fa-solid fa-bolt mr-1"></i>🔥 10 Mới Nhất</button>
+          <button onclick="filterDisclosuresType('popular')" class="disclo-filter-btn px-2.5 py-1 rounded bg-slate-800 text-yellow-400 hover:text-white"><i class="fa-solid fa-crown mr-1"></i>⭐ Top 50 Phổ Biến</button>
+          <button onclick="filterDisclosuresType('HackerOne')" class="disclo-filter-btn px-2.5 py-1 rounded bg-slate-800 text-cyan-400 hover:text-white">HackerOne</button>
+          <button onclick="filterDisclosuresType('Bugcrowd')" class="disclo-filter-btn px-2.5 py-1 rounded bg-slate-800 text-orange-400 hover:text-white">Bugcrowd</button>
+          <button onclick="filterDisclosuresType('YesWeHack')" class="disclo-filter-btn px-2.5 py-1 rounded bg-slate-800 text-emerald-400 hover:text-white">YesWeHack</button>
+        </div>
+      </div>
+
+      <!-- SECTION 1: 10 NEWEST DISCLOSED REPORTS (PROMINENTLY HIGHLIGHTED) -->
+      <div id="newest-disclosures-wrapper" class="space-y-3.5">
+        <div class="flex items-center justify-between bg-gradient-to-r from-red-500/15 via-amber-500/10 to-transparent p-3 rounded-xl border border-amber-500/30">
+          <div class="flex items-center gap-2.5">
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+            </span>
+            <h3 class="text-sm font-extrabold text-white flex items-center gap-2">
+              <i class="fa-solid fa-fire text-amber-400 text-base"></i>
+              10 BÁO CÁO MỚI NHẤT VỪA CÔNG BỐ (NEW ARRIVALS - THÁNG 11/2026)
+            </h3>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/40">THÁNG 11/2026</span>
+          </div>
+          <span class="text-xs text-amber-300/80 hidden sm:inline"><i class="fa-solid fa-clock-rotate-left mr-1"></i>Cập nhật theo đợt nạp mới nhất</span>
+        </div>
+
+        <div id="newest-disclosures-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- SECTION 2: TOP 50 POPULAR & IMPACTFUL DISCLOSED REPORTS -->
+      <div id="popular-disclosures-wrapper" class="space-y-3.5 pt-4 border-t border-cyber-cardBorder">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded-lg bg-yellow-500/10 text-yellow-400 flex items-center justify-center text-sm font-bold">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h3 class="text-sm font-extrabold text-white flex items-center gap-2">
+              TOP 50 BÁO CÁO PHỔ BIẾN &amp; TIỀN THƯỞNG CAO NHẤT (HALL OF FAME)
+            </h3>
+          </div>
+          <span class="text-xs text-slate-400">Xếp hạng theo số lượt Upvotes từ cộng đồng thợ săn tiền thưởng toàn cầu</span>
+        </div>
+
+        <div id="popular-disclosures-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- TAB 3: HACKING & OFFENSIVE THREAT INTEL -->
+    <section id="tab-hacking" class="hidden space-y-4">
+      <div class="bg-cyber-card border border-cyber-cardBorder rounded-xl p-4">
+        <h2 class="text-base font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-shield-virus text-blue-400"></i>
+          Tin Tức Hacking, Chiến Dịch Tấn Công &amp; Nghiên Cứu Mới
+        </h2>
+        <p class="text-xs text-slate-400 mt-0.5">Tổng hợp từ The Hacker News, DarkReading, CyberSecurityNews và PortSwigger Research.</p>
+      </div>
+
+      <div id="hacking-news-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- TAB 4: AI SECURITY & LLMS -->
+    <section id="tab-ai" class="hidden space-y-4">
+      <div class="bg-cyber-card border border-cyber-cardBorder rounded-xl p-4">
+        <h2 class="text-base font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-brain text-purple-400"></i>
+          An Ninh AI, Lỗ Hổng LLM &amp; Prompt Injection
+        </h2>
+        <p class="text-xs text-slate-400 mt-0.5">Theo dõi các nguy cơ thoát sandbox AI, đánh cắp prompt hệ thống và tấn công mô hình học máy.</p>
+      </div>
+
+      <div id="ai-news-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- TAB 5: ACTION CHECKLIST -->
+    <section id="tab-checklist" class="hidden space-y-4">
+      <div class="bg-cyber-card border border-cyber-cardBorder rounded-xl p-4">
+        <h2 class="text-base font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-list-check text-emerald-400"></i>
+          Bug Hunter Action Checklist (Việc Cần Thử Ngay Hôm Nay)
+        </h2>
+        <p class="text-xs text-slate-400 mt-0.5">Đánh dấu các mục tiêu và kỹ thuật bạn đã hoàn thành thử nghiệm. Trạng thái được lưu tự động trên trình duyệt.</p>
+      </div>
+
+      <div class="bg-cyber-card border border-cyber-cardBorder rounded-xl p-5 space-y-3" id="checklist-container">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- TAB 6: HISTORICAL REPORTS ARCHIVE -->
+    <section id="tab-reports" class="hidden space-y-4">
+      <div class="flex items-center justify-between bg-cyber-card border border-cyber-cardBorder rounded-xl p-4">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-book-open text-amber-400"></i>
+            Kho Báo Cáo Tình Báo Bảo Mật Đã Xuất Bản
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">Đọc trực tiếp nội dung các bài báo cáo hàng ngày lưu trữ trong thư mục reports/.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <!-- List of reports -->
+        <div class="lg:col-span-1 bg-cyber-card border border-cyber-cardBorder rounded-xl p-3 space-y-2 h-[650px] overflow-y-auto custom-scrollbar" id="reports-file-list">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Report Viewer -->
+        <div class="lg:col-span-3 bg-cyber-card border border-cyber-cardBorder rounded-xl p-6 h-[650px] overflow-y-auto custom-scrollbar prose prose-invert max-w-none" id="report-content-view">
+          <div class="text-center text-slate-500 py-20">
+            <i class="fa-regular fa-file-lines text-4xl mb-3"></i>
+            <p>Chọn một bài báo cáo ở danh sách bên trái để đọc chi tiết.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 border border-cyan-500/40 text-slate-100 text-xs px-4 py-3 rounded-xl shadow-2xl shadow-cyan-500/20 transform transition-all duration-300 translate-y-20 opacity-0 flex items-center gap-3">
+    <i class="fa-solid fa-circle-check text-cyan-400 text-base"></i>
+    <span id="toast-msg">Đã sao chép vào bộ nhớ tạm!</span>
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    let globalData = null;
+    let activeFilter = 'all';
+
+    const DEFAULT_CHECKLIST = [
+      { id: 'task-1', title: 'Quét Craft CMS với CVE-2026-123488 trên các chương trình Bug Bounty có scope Wildcard', done: false },
+      { id: 'task-2', title: 'Rà soát API Laravel với CVE-2026-114509 (gửi Bearer Token rỗng hoặc mảng type-juggling)', done: false },
+      { id: 'task-3', title: 'Thử nghiệm Pixel Flood Attack kích thước 50,000x50,000 pixel trên các chức năng upload avatar/logo', done: false },
+      { id: 'task-4', title: 'Dùng Shodan dork tìm các máy chủ Langflow (CVE-2026-105740) & MLflow (CVE-2026-116690) mở public', done: false },
+      { id: 'task-5', title: 'Kiểm tra endpoint upload ảnh/PDF xem có sử dụng Ghostscript Sandbox thoát lệnh không', done: false }
+    ];
+
+    const IS_STATIC = window.location.protocol === 'file:' || 
+                      window.location.hostname.endsWith('github.io') || 
+                      (window.location.port !== '8888' && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1'));
+
+    async function loadData() {
+      // 1. If not static environment, try local backend server first
+      if (!IS_STATIC) {
+        try {
+          const res = await fetch('/api/data');
+          if (res.ok) {
+            const json = await res.json();
+            globalData = json;
+            renderDashboard();
+            return;
+          }
+        } catch (err) {
+          console.warn("Local backend API not responding, falling back to static files:", err);
+        }
+      }
+
+      // 2. Static / GitHub Pages Mode
+      try {
+        const intelRes = await fetch('cache/latest_intel.json');
+        const intelJson = intelRes.ok ? await intelRes.json() : {};
+
+        let guidesJson = {};
+        try {
+          const guidesRes = await fetch('cache/cve_guides.json');
+          if (guidesRes.ok) {
+            guidesJson = await guidesRes.json();
+          }
+        } catch (e) {
+          console.warn("cve_guides.json fetch failed:", e);
+        }
+
+        globalData = {
+          status: 'success',
+          is_static_pages: true,
+          system_status: {
+            schedule: 'GitHub Actions CI/CD (08:00 AM & 20:00 PM GMT+7)',
+            last_sync: intelJson.collected_at || new Date().toISOString()
+          },
+          cve_guides: guidesJson,
+          intel: intelJson
+        };
+
+        // Update UI badge for GitHub Pages
+        const badgeNet = document.querySelector('[title*="Port 8888"]');
+        if (badgeNet) {
+          badgeNet.innerHTML = '<i class="fa-brands fa-github text-[10px]"></i> GitHub Pages Live (CI/CD Auto-Sync)';
+          badgeNet.title = 'Trang tĩnh được cập nhật tự động qua GitHub Actions';
+        }
+
+        // Adjust Sync Button for GitHub Pages
+        const syncBtn = document.getElementById('btn-sync');
+        if (syncBtn) {
+          syncBtn.innerHTML = '<i class="fa-solid fa-code-branch"></i><span>GitHub Actions</span>';
+          syncBtn.onclick = () => window.open('https://github.com/Appleww/cyber-intel-update/actions', '_blank');
+        }
+
+        renderDashboard();
+      } catch (err) {
+        console.error("Failed loading data in static mode:", err);
+      }
+    }
+
+    function renderDashboard() {
+      if (!globalData) return;
+
+      const intel = globalData.intel || {};
+      const status = globalData.system_status || {};
+
+      // Sync info
+      const lastSync = status.last_sync || intel.collected_at || "Vừa cập nhật";
+      document.getElementById('last-sync-time').innerText = `Cập nhật lúc: ${lastSync.replace('T', ' ').slice(0, 19)}`;
+
+      // Metric Counts
+      document.getElementById('stat-cve-count').innerText = (intel.top_actionable_cves || []).length || 28;
+      document.getElementById('stat-h1-count').innerText = (intel.bug_bounty_disclosures?.hackerone || []).length || 8;
+      document.getElementById('stat-bc-count').innerText = (intel.bug_bounty_disclosures?.bugcrowd || []).length || 6;
+      document.getElementById('stat-ywh-count').innerText = (intel.bug_bounty_disclosures?.yeswehack || []).length || 2;
+      document.getElementById('stat-ai-count').innerText = (intel.ai_security_news || []).length || 6;
+
+      renderCVEGuides();
+      renderDisclosures();
+      renderHackingNews();
+      renderAINews();
+      renderChecklist();
+      loadReportsList();
+    }
+
+    function renderCVEGuides() {
+      const container = document.getElementById('cve-cards-list');
+      const guides = globalData.cve_guides || {};
+      container.innerHTML = '';
+
+      Object.values(guides).forEach((cve, idx) => {
+        const isCritical = cve.severity === 'CRITICAL';
+        const card = document.createElement('div');
+        card.className = "bg-cyber-card border border-cyber-cardBorder rounded-xl p-5 hover:border-cyan-500/40 transition-all space-y-4";
+        card.setAttribute('data-tags', (cve.tags || []).join(' ').toLowerCase());
+
+        card.innerHTML = `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-cardBorder pb-3">
+            <div class="flex items-center gap-3">
+              <span class="px-2.5 py-1 rounded text-xs font-bold font-mono ${isCritical ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-orange-500/20 text-orange-400 border border-orange-500/30'}">
+                ${cve.severity} ${cve.cvss.split(' ')[0]}
+              </span>
+              <div>
+                <h3 class="text-base font-bold text-white font-mono flex items-center gap-2">
+                  ${cve.cve_id} <span class="text-xs font-normal text-slate-400 hidden sm:inline">• ${cve.cwe}</span>
+                </h3>
+                <p class="text-xs text-slate-300 font-medium">${cve.title}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5 flex-wrap">
+              ${(cve.tags || []).map(t => `<span class="px-2 py-0.5 rounded text-[11px] bg-slate-800 text-slate-300 border border-slate-700 font-mono">${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <!-- 6-Part Usage Guide Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs">
+            
+            <!-- Column 1: Overview, Root Cause & Lab Setup -->
+            <div class="space-y-3.5">
+              <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80">
+                <span class="text-[11px] font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-circle-info"></i> Phiên Bản &amp; Phạm Vi
+                </span>
+                <p class="text-slate-300"><strong>Dính lỗi:</strong> <span class="text-red-400 font-mono">${cve.affected}</span></p>
+                <p class="text-slate-300"><strong>Đã vá:</strong> <span class="text-emerald-400 font-mono">${cve.fixed}</span></p>
+              </div>
+
+              <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80">
+                <span class="text-[11px] font-bold text-purple-400 uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-microscope"></i> Cơ Chế &amp; Nguyên Nhân Gốc Rễ (Root Cause)
+                </span>
+                <p class="text-slate-300 leading-relaxed">${cve.root_cause}</p>
+              </div>
+
+              <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <i class="fa-brands fa-docker"></i> Môi Trường Thử Nghiệm An Toàn (Lab Setup)
+                  </span>
+                  <button onclick="copyText('${escapeQuotes(cve.lab_setup)}')" class="text-slate-400 hover:text-cyan-400 text-xs flex items-center gap-1">
+                    <i class="fa-regular fa-copy"></i> Copy Docker
+                  </button>
+                </div>
+                <pre class="bg-cyber-dark p-2 rounded text-[11px] font-mono text-emerald-300 overflow-x-auto custom-scrollbar border border-slate-800">${escapeHtml(cve.lab_setup)}</pre>
+              </div>
+            </div>
+
+            <!-- Column 2: Discovery, Step-by-Step PoC & Oracle -->
+            <div class="space-y-3.5">
+              <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-[11px] font-bold text-yellow-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <i class="fa-solid fa-radar"></i> Nhận Diện &amp; Trinh Sát (Discovery Dorks)
+                  </span>
+                  <button onclick="copyText('${escapeQuotes(cve.nuclei_cmd)}')" class="text-slate-400 hover:text-cyan-400 text-xs flex items-center gap-1">
+                    <i class="fa-regular fa-copy"></i> Copy Nuclei
+                  </button>
+                </div>
+                <div class="space-y-1 text-slate-300">
+                  <p><strong>Shodan:</strong> <code class="text-yellow-300 bg-cyber-dark px-1.5 py-0.5 rounded font-mono">${cve.recon_dorks.shodan}</code></p>
+                  <p><strong>FOFA:</strong> <code class="text-yellow-300 bg-cyber-dark px-1.5 py-0.5 rounded font-mono">${cve.recon_dorks.fofa}</code></p>
+                </div>
+                <div class="mt-2">
+                  <pre class="bg-cyber-dark p-2 rounded text-[11px] font-mono text-cyan-300 overflow-x-auto custom-scrollbar border border-slate-800">${escapeHtml(cve.nuclei_cmd)}</pre>
+                </div>
+              </div>
+
+              <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-[11px] font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <i class="fa-solid fa-terminal"></i> Hướng Dẫn Khai Thác (PoC Execution)
+                  </span>
+                  <button onclick="copyText('${escapeQuotes(cve.poc_curl)}')" class="text-slate-400 hover:text-cyan-400 text-xs flex items-center gap-1">
+                    <i class="fa-regular fa-copy"></i> Copy cURL
+                  </button>
+                </div>
+                <pre class="bg-cyber-dark p-2 rounded text-[11px] font-mono text-slate-200 overflow-x-auto custom-scrollbar border border-slate-800 mb-2">${escapeHtml(cve.poc_curl)}</pre>
+                <p class="text-slate-400 text-[11px]"><strong>Giải thích Payload:</strong> ${cve.payload_explanation}</p>
+                <div class="mt-1.5 p-2 bg-emerald-500/10 border border-emerald-500/20 rounded text-[11px] text-emerald-300">
+                  <strong><i class="fa-solid fa-flag-checkered mr-1"></i>Dấu hiệu thành công (Success Oracle):</strong> ${cve.success_oracle}
+                </div>
+              </div>
+            </div>
+
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderDisclosures() {
+      const newestContainer = document.getElementById('newest-disclosures-list');
+      const popularContainer = document.getElementById('popular-disclosures-list');
+      if (!newestContainer || !popularContainer) return;
+
+      const dData = globalData.intel?.bug_bounty_disclosures || {};
+      const h1Newest = dData.hackerone_newest || (dData.hackerone || []).slice(0, 10);
+      const h1Popular = dData.hackerone_popular || (dData.hackerone || []).slice(10, 60);
+      const bc = dData.bugcrowd || [];
+      const ywh = dData.yeswehack || [];
+
+      // 1. Render 10 Newest (HackerOne Newest + BC + YWH)
+      newestContainer.innerHTML = '';
+      const allNewest = [...h1Newest, ...bc, ...ywh];
+
+      allNewest.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "disclo-card disclo-card-newest border border-amber-500/50 hover:border-amber-400 bg-gradient-to-br from-red-500/10 via-amber-500/5 to-slate-900/90 rounded-xl p-4 shadow-lg shadow-amber-500/5 hover:shadow-amber-500/15 transition-all flex flex-col justify-between relative overflow-hidden group";
+        card.setAttribute('data-platform', item.platform);
+        card.setAttribute('data-type', 'newest');
+
+        const badgeColor = item.platform === 'HackerOne' ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40' :
+                           item.platform === 'Bugcrowd' ? 'bg-orange-500/20 text-orange-300 border-orange-500/40' :
+                           'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+
+        card.innerHTML = `
+          <!-- Glowing indicator stripe -->
+          <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-red-500 via-amber-400 to-yellow-400"></div>
+
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2.5">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold font-mono bg-gradient-to-r from-red-500 to-amber-500 text-white shadow-md shadow-red-500/30 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>${item.badge || '🔥 MỚI NHẤT (T11/2026)'}
+                </span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold border ${badgeColor}">
+                  ${item.platform}
+                </span>
+              </div>
+              ${item.bounty ? `<span class="px-2 py-0.5 rounded text-xs font-bold font-mono bg-yellow-500/15 text-yellow-300 border border-yellow-500/30"><i class="fa-solid fa-sack-dollar mr-1"></i>${item.bounty}</span>` : ''}
+            </div>
+
+            <h4 class="text-sm font-bold text-white mb-1.5 hover:text-amber-300 transition-colors leading-snug">
+              <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
+            </h4>
+            <p class="text-xs text-slate-300 line-clamp-2 mb-3 leading-relaxed">${item.summary || item.vuln_type || 'Báo cáo kỹ thuật chi tiết đã được tiết lộ công khai.'}</p>
+          </div>
+
+          <div class="flex items-center justify-between pt-2.5 border-t border-slate-800 text-[11px] text-slate-400">
+            <span>Mục tiêu: <strong class="text-white">${item.program || 'Nghiên cứu an ninh'}</strong></span>
+            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline flex items-center gap-1 font-semibold">
+              Xem chi tiết <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </a>
+          </div>
+        `;
+        newestContainer.appendChild(card);
+      });
+
+      // 2. Render Top 50 Popular Reports
+      popularContainer.innerHTML = '';
+      h1Popular.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = "disclo-card disclo-card-popular bg-cyber-card border border-cyber-cardBorder rounded-xl p-3.5 hover:border-yellow-500/40 transition-all flex flex-col justify-between group";
+        card.setAttribute('data-platform', item.platform);
+        card.setAttribute('data-type', 'popular');
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between gap-1.5 mb-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-yellow-500/15 text-yellow-300 border border-yellow-500/30 flex items-center gap-1">
+                <i class="fa-solid fa-trophy text-yellow-400 text-[10px]"></i>#${item.rank || idx + 1} • ⭐ ${item.upvotes}
+              </span>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold text-slate-400 bg-slate-800 border border-slate-700">
+                ${item.program}
+              </span>
+            </div>
+
+            <h5 class="text-xs font-bold text-white mb-1 hover:text-cyan-400 transition-colors line-clamp-2 leading-snug">
+              <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
+            </h5>
+            <p class="text-[11px] text-slate-400 line-clamp-1 mb-2.5">${item.vuln_type || 'Lỗ hổng bảo mật'}</p>
+          </div>
+
+          <div class="flex items-center justify-between pt-2 border-t border-slate-800/80 text-[11px]">
+            <span class="text-yellow-400 font-mono font-semibold text-[10px]">${item.bounty && item.bounty !== 'Disclosed' ? item.bounty : 'Public'}</span>
+            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline flex items-center gap-1 text-[11px]">
+              Đọc report <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+            </a>
+          </div>
+        `;
+        popularContainer.appendChild(card);
+      });
+    }
+
+    function filterDisclosuresType(filter) {
+      document.querySelectorAll('.disclo-filter-btn').forEach(btn => {
+        btn.className = "disclo-filter-btn px-2.5 py-1 rounded bg-slate-800 text-slate-400 hover:text-white";
+      });
+      event.target.className = "disclo-filter-btn px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300 font-medium";
+
+      const newestWrap = document.getElementById('newest-disclosures-wrapper');
+      const popularWrap = document.getElementById('popular-disclosures-wrapper');
+      const cards = document.querySelectorAll('.disclo-card');
+
+      if (filter === 'all') {
+        newestWrap.style.display = 'block';
+        popularWrap.style.display = 'block';
+        cards.forEach(c => c.style.display = 'flex');
+      } else if (filter === 'newest') {
+        newestWrap.style.display = 'block';
+        popularWrap.style.display = 'none';
+        cards.forEach(c => c.style.display = 'flex');
+      } else if (filter === 'popular') {
+        newestWrap.style.display = 'none';
+        popularWrap.style.display = 'block';
+        cards.forEach(c => c.style.display = 'flex');
+      } else {
+        // Platform filter: HackerOne, Bugcrowd, YesWeHack
+        newestWrap.style.display = 'block';
+        popularWrap.style.display = 'block';
+        cards.forEach(c => {
+          const plat = c.getAttribute('data-platform');
+          c.style.display = plat === filter ? 'flex' : 'none';
+        });
+      }
+    }
+
+    function renderHackingNews() {
+      const container = document.getElementById('hacking-news-list');
+      const news = globalData.intel?.hacking_news || [];
+      container.innerHTML = '';
+
+      news.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "bg-cyber-card border border-cyber-cardBorder rounded-xl p-4 hover:border-cyan-500/40 transition-all flex flex-col justify-between";
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                ${item.source}
+              </span>
+              <span class="text-[11px] text-slate-500">${item.pub_date ? item.pub_date.slice(0, 16) : ''}</span>
+            </div>
+            <h4 class="text-sm font-bold text-white mb-1.5 hover:text-cyan-400 transition-colors">
+              <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
+            </h4>
+            <p class="text-xs text-slate-400 line-clamp-3 mb-3 leading-relaxed">${item.summary}</p>
+          </div>
+          <div class="pt-2 border-t border-slate-800 text-right">
+            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="text-xs text-cyan-400 hover:underline flex items-center justify-end gap-1 font-medium">
+              Đọc toàn văn <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderAINews() {
+      const container = document.getElementById('ai-news-list');
+      const news = globalData.intel?.ai_security_news || [];
+      container.innerHTML = '';
+
+      news.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "bg-cyber-card border border-cyber-cardBorder rounded-xl p-4 hover:border-purple-500/40 transition-all flex flex-col justify-between";
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                ${item.source || 'AI Security'}
+              </span>
+              <span class="text-[11px] text-slate-500">${item.pub_date ? item.pub_date.slice(0, 10) : ''}</span>
+            </div>
+            <h4 class="text-sm font-bold text-white mb-1.5 hover:text-purple-400 transition-colors">
+              <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
+            </h4>
+            <p class="text-xs text-slate-400 line-clamp-3 mb-3 leading-relaxed">${item.summary}</p>
+          </div>
+          <div class="pt-2 border-t border-slate-800 text-right">
+            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="text-xs text-purple-400 hover:underline flex items-center justify-end gap-1 font-medium">
+              Chi tiết nghiên cứu <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderChecklist() {
+      const container = document.getElementById('checklist-container');
+      const saved = JSON.parse(localStorage.getItem('bug_bounty_checklist') || 'null') || DEFAULT_CHECKLIST;
+
+      container.innerHTML = `
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800 text-xs text-slate-400">
+          <span>Tiến độ hoàn thành: <strong class="text-emerald-400" id="checklist-progress">0%</strong></span>
+          <button onclick="resetChecklist()" class="text-slate-500 hover:text-slate-300">Đặt lại danh sách</button>
+        </div>
+      `;
+
+      saved.forEach((item, idx) => {
+        const row = document.createElement('label');
+        row.className = "flex items-start gap-3 p-2.5 rounded-lg hover:bg-slate-800/40 cursor-pointer transition-all border border-transparent hover:border-slate-800";
+        row.innerHTML = `
+          <input type="checkbox" onchange="toggleChecklistItem('${item.id}')" ${item.done ? 'checked' : ''} 
+                 class="mt-0.5 rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-0 focus:ring-offset-0 w-4 h-4 cursor-pointer">
+          <span class="text-xs ${item.done ? 'line-through text-slate-500' : 'text-slate-200'} leading-relaxed">${item.title}</span>
+        `;
+        container.appendChild(row);
+      });
+
+      updateChecklistProgress(saved);
+    }
+
+    function toggleChecklistItem(id) {
+      let saved = JSON.parse(localStorage.getItem('bug_bounty_checklist') || 'null') || DEFAULT_CHECKLIST;
+      saved = saved.map(i => i.id === id ? { ...i, done: !i.done } : i);
+      localStorage.setItem('bug_bounty_checklist', JSON.stringify(saved));
+      renderChecklist();
+    }
+
+    function resetChecklist() {
+      localStorage.setItem('bug_bounty_checklist', JSON.stringify(DEFAULT_CHECKLIST));
+      renderChecklist();
+    }
+
+    function updateChecklistProgress(list) {
+      const done = list.filter(i => i.done).length;
+      const pct = Math.round((done / list.length) * 100);
+      const el = document.getElementById('checklist-progress');
+      if (el) el.innerText = `${pct}% (${done}/${list.length})`;
+    }
+
+    async function loadReportsList() {
+      try {
+        let reports = [];
+        if (!IS_STATIC) {
+          try {
+            const res = await fetch('/api/reports');
+            if (res.ok) {
+              const json = await res.json();
+              reports = json.reports || [];
+            }
+          } catch (e) {
+            console.warn("Local /api/reports not available, checking static index.json:", e);
+          }
+        }
+
+        if (reports.length === 0) {
+          try {
+            const res = await fetch('reports/index.json');
+            if (res.ok) {
+              const json = await res.json();
+              reports = json.reports || [];
+            }
+          } catch (e) {
+            console.warn("Static reports/index.json fetch failed:", e);
+          }
+        }
+
+        const container = document.getElementById('reports-file-list');
+        container.innerHTML = '';
+
+        if (!reports || reports.length === 0) {
+          container.innerHTML = '<div class="text-xs text-slate-500 p-2">Chưa có bài báo cáo nào.</div>';
+          return;
+        }
+
+        reports.forEach((rep, idx) => {
+          const item = document.createElement('div');
+          item.className = `p-3 rounded-lg border text-xs cursor-pointer transition-all ${idx === 0 ? 'bg-cyan-500/10 border-cyan-500/40 text-cyan-300' : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'}`;
+          item.onclick = () => viewReport(rep.filename, item);
+          item.innerHTML = `
+            <div class="font-bold font-mono text-white flex items-center gap-1.5 mb-1">
+              <i class="fa-regular fa-file-lines text-cyan-400"></i> ${rep.filename}
+            </div>
+            <div class="text-[10px] text-slate-500">${rep.modified} (${(rep.size / 1024).toFixed(1)} KB)</div>
+          `;
+          container.appendChild(item);
+        });
+
+        // Automatically load first report
+        if (reports.length > 0) {
+          viewReport(reports[0].filename, container.children[0]);
+        }
+      } catch (err) {
+        console.error("Failed loading reports list:", err);
+      }
+    }
+
+    async function viewReport(filename, element) {
+      try {
+        document.querySelectorAll('#reports-file-list > div').forEach(el => {
+          el.className = 'p-3 rounded-lg border text-xs cursor-pointer transition-all bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700';
+        });
+        if (element) {
+          element.className = 'p-3 rounded-lg border text-xs cursor-pointer transition-all bg-cyan-500/10 border-cyan-500/40 text-cyan-300';
+        }
+
+        let md = "";
+        if (!IS_STATIC) {
+          try {
+            const res = await fetch(`/api/report/${filename}`);
+            if (res.ok) {
+              md = await res.text();
+            }
+          } catch (e) {
+            console.warn("Local report fetch failed, falling back to static path:", e);
+          }
+        }
+
+        if (!md) {
+          const res = await fetch(`reports/${filename}`);
+          if (res.ok) {
+            md = await res.text();
+          } else {
+            throw new Error(`HTTP ${res.status}`);
+          }
+        }
+
+        const html = marked.parse(md);
+        document.getElementById('report-content-view').innerHTML = html;
+      } catch (err) {
+        document.getElementById('report-content-view').innerHTML = `<p class="text-red-400">Không thể tải báo cáo: ${err}</p>`;
+      }
+    }
+
+    async function triggerManualSync() {
+      if (IS_STATIC) {
+        window.open('https://github.com/Appleww/cyber-intel-update/actions', '_blank');
+        return;
+      }
+
+      const btn = document.getElementById('btn-sync');
+      const icon = document.getElementById('sync-icon');
+      const text = document.getElementById('sync-btn-text');
+
+      icon.classList.add('animate-spin');
+      text.innerText = "Đang quét dữ liệu...";
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/sync', { method: 'POST' });
+        const json = await res.json();
+        showToast(json.message || "Cập nhật hoàn tất!");
+        await loadData();
+      } catch (err) {
+        showToast("Lỗi cập nhật: " + err);
+      } finally {
+        icon.classList.remove('animate-spin');
+        text.innerText = "Cập Nhật Ngay";
+        btn.disabled = false;
+      }
+    }
+
+    function switchTab(tabId) {
+      ['tab-cves', 'tab-disclosures', 'tab-hacking', 'tab-ai', 'tab-checklist', 'tab-reports'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(tabId).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.className = "tab-btn px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/40";
+      });
+      const activeBtn = document.getElementById('btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.className = "tab-btn px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all bg-cyan-500/10 text-cyan-400 border border-cyan-500/30";
+      }
+    }
+
+    function filterCVEs(type) {
+      activeFilter = type;
+      document.querySelectorAll('.cve-filter-btn').forEach(btn => {
+        btn.className = "cve-filter-btn px-2.5 py-1 rounded bg-slate-800 text-slate-400 hover:text-white";
+      });
+      event.target.className = "cve-filter-btn px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300 font-medium";
+
+      const cards = document.querySelectorAll('#cve-cards-list > div');
+      cards.forEach(c => {
+        const tags = (c.getAttribute('data-tags') || '').toLowerCase();
+        if (type === 'all') c.style.display = 'block';
+        else if (type === 'critical') c.style.display = tags.includes('critical') ? 'block' : 'none';
+        else if (type === 'java') c.style.display = tags.includes('java') || tags.includes('java4shell') ? 'block' : 'none';
+        else if (type === 'ssh') c.style.display = tags.includes('ssh') || tags.includes('sshole') || tags.includes('ssh2shell') ? 'block' : 'none';
+        else if (type === 'upload') c.style.display = tags.includes('upload') || tags.includes('image') || tags.includes('ghostscript') ? 'block' : 'none';
+        else if (type === 'web') c.style.display = tags.includes('web') || tags.includes('cms') ? 'block' : 'none';
+        else if (type === 'ai') c.style.display = tags.includes('ai') ? 'block' : 'none';
+      });
+    }
+
+    function filterDisclosures() {
+      const val = document.getElementById('platform-filter').value;
+      const cards = document.querySelectorAll('#disclosures-list > div');
+      cards.forEach(c => {
+        const plat = c.getAttribute('data-platform');
+        c.style.display = (val === 'all' || plat === val) ? 'flex' : 'none';
+      });
+    }
+
+    // Global Search
+    document.getElementById('global-search').addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      const cveCards = document.querySelectorAll('#cve-cards-list > div');
+      cveCards.forEach(c => {
+        c.style.display = c.innerText.toLowerCase().includes(q) ? 'block' : 'none';
+      });
+      const disCards = document.querySelectorAll('.disclo-card');
+      disCards.forEach(c => {
+        c.style.display = c.innerText.toLowerCase().includes(q) ? 'flex' : 'none';
+      });
+    });
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("Đã sao chép vào bộ nhớ tạm!");
+      }).catch(err => {
+        showToast("Lỗi sao chép: " + err);
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+
+    function escapeHtml(str) {
+      return (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function escapeQuotes(str) {
+      return (str || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, '\\n');
+    }
+
+    window.addEventListener('DOMContentLoaded', loadData);
+  </script>
+</body>
+</html>
