@@ -7,11 +7,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'reports/**'
-      - 'web/**'
-      - '.agents/**'
-      - 'scripts/**'
   workflow_dispatch: # Cho phép bấm nút chạy thủ công trên giao diện GitHub
 
 permissions:
