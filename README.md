@@ -1,13 +1,13 @@
 # 🛡️ Cyber Intelligence & Bug Bounty Hub
 
-[![Deploy GitHub Pages](https://github.com/Appleww/cyber-intel-update/actions/workflows/update-intel.yml/badge.svg)](https://github.com/Appleww/cyber-intel-update/actions/workflows/update-intel.yml)
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Hub-emerald?style=flat&logo=github)](https://Appleww.github.io/cyber-intel-update/)
+[![Deploy GitHub Pages](https://github.com/Hoang456-crush/cyber-intel-update/actions/workflows/update-intel.yml/badge.svg)](https://github.com/Hoang456-crush/cyber-intel-update/actions/workflows/update-intel.yml)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Hub-emerald?style=flat&logo=github)](https://Hoang456-crush.github.io/cyber-intel-update/)
 [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12-blue?logo=python)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 
 Hệ thống theo dõi, tổng hợp và xuất bản thông tin tình báo an toàn thông tin (Cyber Threat Intelligence) và Bug Bounty tự động hóa hàng ngày. Tích hợp giao diện Dashboard mạng nội bộ lẫn trang tĩnh công khai trên **GitHub Pages**, đi kèm đường ống **CI/CD GitHub Actions** tự động cập nhật dữ liệu 2 lần/ngày.
 
-🌐 **Trang Web Trực Tuyến Công Khai**: [https://Appleww.github.io/cyber-intel-update/](https://Appleww.github.io/cyber-intel-update/)
+🌐 **Trang Web Trực Tuyến Công Khai**: [https://Hoang456-crush.github.io/cyber-intel-update/](https://Hoang456-crush.github.io/cyber-intel-update/)
 
 ---
 
@@ -43,7 +43,7 @@ flowchart LR
     E --> F["Tạo index.json & dist/"]
     F --> G["Commit dữ liệu mới vào repo"]
     G --> H["Deploy lên GitHub Pages"]
-    H --> I["Độc Giả Xem Tại https://Appleww.github.io/cyber-intel-update/"]
+    H --> I["Độc Giả Xem Tại https://Hoang456-crush.github.io/cyber-intel-update/"]
 ```
 
 ---
@@ -53,7 +53,7 @@ flowchart LR
 ### 1. Cài đặt môi trường
 Yêu cầu Python 3.10 trở lên:
 ```bash
-git clone https://github.com/Appleww/cyber-intel-update.git
+git clone https://github.com/Hoang456-crush/cyber-intel-update.git
 cd cyber-intel-update
 pip install -r requirements.txt
 ```
