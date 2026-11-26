@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-25T22:06:04.815984+00:00",
+  "collected_at": "2026-11-26T09:06:25.670866+00:00",
   "summary_counts": {
     "cisa_kev_count": 8,
     "nuclei_cves_count": 20,
@@ -7,7 +7,7 @@
     "hackerone_newest_count": 10,
     "hackerone_popular_count": 50,
     "bugcrowd_articles_count": 6,
-    "yeswehack_articles_count": 1,
+    "yeswehack_articles_count": 0,
     "hacking_news_count": 7,
     "ai_security_news_count": 6,
     "total_actionable_cves": 28
@@ -390,15 +390,6 @@
         "title": "Checkmate: What chess teaches us about preemptive security",
         "link": "https://www.bugcrowd.com/blog/checkmate-what-chess-teaches-us-about-preemptive-security/",
         "summary": "Bugcrowd technical article & intelligence: Checkmate: What chess teaches us about preemptive security",
-        "is_new": true,
-        "is_popular": false,
-        "badge": "🔥 MỚI NHẤT (T11/2026)"
-      },
-      {
-        "platform": "YesWeHack",
-        "title": "Black October, agents tip off police, Anthropic’s IoT warning – OffSec roundup for CISOs",
-        "link": "https://blog.yeswehack.com/news/black-october-agents-anthropic-iot",
-        "summary": "YesWeHack security disclosure & writeup: Black October, agents tip off police, Anthropic’s IoT warning – OffSec roundup for CISOs",
         "is_new": true,
         "is_popular": false,
         "badge": "🔥 MỚI NHẤT (T11/2026)"
@@ -3660,46 +3651,43 @@
         "badge": "🔥 MỚI NHẤT (T11/2026)"
       }
     ],
-    "yeswehack": [
-      {
-        "platform": "YesWeHack",
-        "title": "Black October, agents tip off police, Anthropic’s IoT warning – OffSec roundup for CISOs",
-        "link": "https://blog.yeswehack.com/news/black-october-agents-anthropic-iot",
-        "summary": "YesWeHack security disclosure & writeup: Black October, agents tip off police, Anthropic’s IoT warning – OffSec roundup for CISOs",
-        "is_new": true,
-        "is_popular": false,
-        "badge": "🔥 MỚI NHẤT (T11/2026)"
-      }
-    ]
+    "yeswehack": []
   },
   "hacking_news": [
     {
-      "title": "Hackers Exploit Two GeoServer Flaws as Researchers Warn of Unauthenticated RCE Chains",
-      "link": "https://thehackernews.com/2026/11/hackers-exploit-two-geoserver-flaws-as.html",
-      "pub_date": "Wed, 25 Nov 2026 18:18:54 +0530",
-      "summary": "Threat actors are actively exploiting two newly patched security flaws in GeoServer, according to watchTowr. The vulnerabilities in question are CVE-2026-120705 and CVE-2026-129243, details of which are below - CVE-2026-120705 (CVSS score: 8.6) - An arbitrary file read vulnerability that could enable an attacker to access local text files readable by the GeoServer process or fetch",
+      "title": "Drupal Warns of New Highly Critical Site Takeover Vulnerability Under Active Exploitation",
+      "link": "https://thehackernews.com/2026/11/drupal-warns-of-new-highly-critical.html",
+      "pub_date": "Thu, 26 Nov 2026 12:32:34 +0530",
+      "summary": "Drupal has warned of a new \"highly critical\" security flaw impacting Drupal core that it said has been exploited in the wild. The vulnerability, tracked as CVE-2026-136716 (CVSS score: N/A), has been described as a case of improper checking for unusual or exceptional conditions. It also relates to CVE-2026-132165 aka Fail2Install in that it addresses remaining vulnerable installation states",
       "source": "The Hacker News"
     },
     {
-      "title": "U.S. Treasury's Financial Crimes Agency Takes Some Systems Offline After Cyber Intrusion",
-      "link": "https://thehackernews.com/2026/11/us-treasurys-fincen-takes-some-systems.html",
-      "pub_date": "Wed, 25 Nov 2026 18:00:08 +0530",
-      "summary": "The U.S. Treasury Department's Financial Crimes Enforcement Network (FinCEN) has been hit by a cybersecurity incident that resulted in \"unauthorized access to a limited subset of its systems,\" the bureau said on Tuesday. As a precaution, it has taken some systems offline. The bureau collects suspicious activity reports and other Bank Secrecy Act (BSA) filings from banks and other financial",
+      "title": "Hackers Exploit 10 Vulnerabilities Across Mitel, Juniper, Vates, and Danfoss Products",
+      "link": "https://thehackernews.com/2026/11/hackers-exploit-10-vulnerabilities.html",
+      "pub_date": "Thu, 26 Nov 2026 12:14:46 +0530",
+      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Wednesday added 10 security flaws to its Known Exploited Vulnerabilities (KEV) catalog, including five vulnerabilities impacting Mitel MiCollab that were disclosed last week. The Mitel MiCollab vulnerabilities are listed below - CVE-2026-133275 (CVSS score: 5.3) - An arbitrary file upload vulnerability in the Audio, Web and",
       "source": "The Hacker News"
     },
     {
-      "title": "Credential Remediation Is Slow When You Don’t Know What Will Break",
-      "link": "https://thehackernews.com/2026/11/credential-remediation-is-slow-when-you.html",
-      "pub_date": "Wed, 25 Nov 2026 17:21:48 +0530",
-      "summary": "TL;DR More than 64% still valid after four years: GitGuardian’s State of Secrets Sprawl 2026 found that most valid secrets discovered in 2022 still worked in January 2026, because teams stall on what a revoke will break. Validity-only triage misses 46% of critical secrets: Prioritize by impact instead, weighing what a credential can access and whether it leaked publicly, and update the",
+      "title": "1Password Hacked, Customer Data and Source Code Stolen in GitHub Account Breach",
+      "link": "https://thehackernews.com/2026/11/1password-hacked-customer-data-and.html",
+      "pub_date": "Thu, 26 Nov 2026 09:50:22 +0530",
+      "summary": "Popular password management software 1Password on Wednesday disclosed a security incident involving its backend systems that led to the unauthorized access of some customer information, but emphasized that customer password vaults and other secrets were not accessed. \"While we took immediate steps to contain the incident, the attacker gained access to some of our backend systems and accessed a",
       "source": "The Hacker News"
     },
     {
-      "title": "Drupal Fail2Install Exploit Details Emerge as Critical RCE Flaw Faces Active Exploitation",
-      "link": "https://thehackernews.com/2026/11/drupal-fail2install-exploit-details.html",
-      "pub_date": "Wed, 25 Nov 2026 16:53:26 +0530",
-      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Tuesday added a critical flaw impacting Drupal to its Known Exploited Vulnerabilities (KEV) catalog, requiring federal agencies to apply the fixes by November 27, 2026. The vulnerability, tracked as CVE-2026-132165 aka Fail2Install (CVSS score: 9.8), is a case of remote code execution (RCE) impacting Drupal core. \"Drupal Core",
+      "title": "13 Malicious NuGet Packages Turn Fake .NET Job Assessments Into Malware Delivery Traps",
+      "link": "https://thehackernews.com/2026/11/13-malicious-nuget-packages-turn-fake.html",
+      "pub_date": "Thu, 26 Nov 2026 09:18:52 +0530",
+      "summary": "Cybersecurity researchers have discovered 13 malicious NuGet packages that are designed to target Windows .NET developers under the guise of a fake take-home job assessment. \"Most of the packages pose as WinUI 3 and WPF [Windows Presentation Foundation] button controls,\" Socket security researcher Kush Pandya said in a technical write-up. \"In the versions we analyzed, building or running a",
       "source": "The Hacker News"
+    },
+    {
+      "title": "Cyprus Becomes Espionage Target for Iranian Hackers",
+      "link": "https://www.darkreading.com/cyberattacks-data-breaches/cyprus-espionage-target-iranian-hackers",
+      "pub_date": "Thu, 26 Nov 2026 08:00:00 GMT",
+      "summary": "A previously undocumented Iranian threat group called &quot;Volant Manticore&quot; is targeting Cypriot organizations as part of an intelligence-gathering effort for Tehran.",
+      "source": "DarkReading"
     },
     {
       "title": "Attackers Target .NET Developers With Poisoned Job Assessments",
@@ -3714,16 +3702,23 @@
       "pub_date": "Wed, 25 Nov 2026 15:20:27 GMT",
       "summary": "Bot detection has become a losing game. Security teams need to limit privileged access for humans and their machine counterparts equally.",
       "source": "DarkReading"
-    },
-    {
-      "title": "Cyber Insurers See New Divide: AI Defense 'Haves' &amp; 'Have Nots'",
-      "link": "https://www.darkreading.com/cybersecurity-operations/cyber-insurers-see-new-ai-divide",
-      "pub_date": "Wed, 25 Nov 2026 15:00:00 GMT",
-      "summary": "Dark Reading Confidential Episode 23: Cyber insurers share their view of the AI-driven threat landscape and how mounting challenges are putting pressure on both sides of the policy, leaving the current model unsustainable.",
-      "source": "DarkReading"
     }
   ],
   "ai_security_news": [
+    {
+      "title": "Quoting Scott Aaronson",
+      "link": "https://simonwillison.net/2026/Nov/25/scott-aaronson/",
+      "pub_date": "2026-11-25T23:26:32+00:00",
+      "summary": "It’s now obvious that we’ll be getting, not one-off solutions to this or that complexity question, but a whole new continent of mathematical truth, one that we’d previously only glimpsed through fog. Picture van Leeuwenhoek first training a microscope on pondwater, or Galileo first training his telescope on the stars. That might give you some idea of how our resolution into the complexity-theoreti",
+      "source": "Simon Willison AI Research"
+    },
+    {
+      "title": "datasette-charts 0.3a0",
+      "link": "https://simonwillison.net/2026/Nov/25/datasette-charts/",
+      "pub_date": "2026-11-25T18:16:50+00:00",
+      "summary": "Release: datasette-charts 0.3a0 I added chart annotations to datasette-charts ! You can now render a chart and then annotate it with lines, shaded areas, labels, or a combination of the three. A chart with annotations looks like this: Here's that same chart in Datasette Lite , where you can tweak the annotations using the chart builder UI: If you also install Datasette Agent the agent can build an",
+      "source": "Simon Willison AI Research"
+    },
     {
       "title": "Three LLM inflection points in twelve months",
       "link": "https://simonwillison.net/2026/Nov/24/llm-inflection-points/",
@@ -3750,20 +3745,6 @@
       "link": "https://simonwillison.net/2026/Nov/24/datasette-agent/",
       "pub_date": "2026-11-24T03:45:57+00:00",
       "summary": "Release: datasette-agent 0.7a1 A small improvement to Datasette Agent : chat sessions could already open an iframe side panel that could then navigate to different pages. This version improves navigation by fragment hashes, for deeper integration with other Datasette plugins that update fragment hashes when the user interacts with the plugin in a way that changes state. I built this in order to fi",
-      "source": "Simon Willison AI Research"
-    },
-    {
-      "title": "GLM-5.4: Toward Generalized Coding with Our First Loop Transformer",
-      "link": "https://simonwillison.net/2026/Nov/23/glm-54/",
-      "pub_date": "2026-11-23T23:40:49+00:00",
-      "summary": "GLM-5.4: Toward Generalized Coding with Our First Loop Transformer GLM 5.4 is now available from Chinese AI lab Z.ai. It's their first model to use a looped transformer architecture, which they describe like this: In a standard Transformer, each layer runs once per forward pass. In a Loop Transformer, a group of weight-shared layers runs for multiple iterations, refining the hidden states from the",
-      "source": "Simon Willison AI Research"
-    },
-    {
-      "title": "datasette-charts 0.1a0",
-      "link": "https://simonwillison.net/2026/Nov/23/datasette-charts/",
-      "pub_date": "2026-11-23T00:37:20+00:00",
-      "summary": "Release: datasette-charts 0.1a0 I've been thinking about this problem for over a year now, but on Sunday I finally fired up Claude Fable 5.2 to build an initial prototype. The prototype went so well that this is now a full plugin. You can try it out in Datasette Lite here . It looks like this: The new charts plugin works against any table or arbitrary SQL query in Datasette. It defines several dif",
       "source": "Simon Willison AI Research"
     }
   ]
