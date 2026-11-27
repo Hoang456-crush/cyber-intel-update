@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-26T22:04:25.482634+00:00",
+  "collected_at": "2026-11-27T09:22:20.681189+00:00",
   "summary_counts": {
     "cisa_kev_count": 8,
     "nuclei_cves_count": 20,
@@ -14,8 +14,8 @@
   },
   "top_actionable_cves": [
     {
-      "cve_id": "CVE-2026-123488",
-      "title": "Craft CMS < 4.18.9, < 5.11.2 - Unauthenticated SQL Injection (@0x_Akoko)",
+      "cve_id": "CVE-2026-133968",
+      "title": "monailabel - Directory Traversal (@0x_Akoko)",
       "severity": "CRITICAL",
       "has_nuclei_template": true,
       "is_in_kev": false,
@@ -23,8 +23,8 @@
       "actionability_score": 9
     },
     {
-      "cve_id": "CVE-2026-123158",
-      "title": "SSHole - OpenSSH/musl Password Auth Bypass (@DhiyaneshDk)",
+      "cve_id": "CVE-2026-133469",
+      "title": "XO (Xen Orchestra) - Authentication Bypass (@0x_Akoko)",
       "severity": "CRITICAL",
       "has_nuclei_template": true,
       "is_in_kev": false,
@@ -32,8 +32,8 @@
       "actionability_score": 9
     },
     {
-      "cve_id": "CVE-2026-116606",
-      "title": "Barracuda Email Security Gateway - Authentication Bypass (@DhiyaneshDk)",
+      "cve_id": "CVE-2026-129448",
+      "title": "Apache Roller - XML-RPC Pre-Auth Deserialization RCE (@lama678)",
       "severity": "CRITICAL",
       "has_nuclei_template": true,
       "is_in_kev": false,
@@ -41,8 +41,8 @@
       "actionability_score": 9
     },
     {
-      "cve_id": "CVE-2026-114509",
-      "title": "Laravel TokenGuard - Authentication Bypass (@kosoyyagent)",
+      "cve_id": "CVE-2026-116779",
+      "title": "SignalWire FreeSWITCH < 1.11.3 - SIP MESSAGE api-proto OS Command Injection (@DhiyaneshDk)",
       "severity": "CRITICAL",
       "has_nuclei_template": true,
       "is_in_kev": false,
@@ -50,8 +50,8 @@
       "actionability_score": 9
     },
     {
-      "cve_id": "CVE-2026-111497",
-      "title": "Node.js Brotli Request-Body Integer Overflow (node2shell) - Remote Code Execution (@assetnote, @DhiyaneshDk, @goosvorbook)",
+      "cve_id": "CVE-2026-116692",
+      "title": "MLflow < 3.17.0 - Third-Party Scorer Deserialization Remote Code Execution (@0x_Akoko)",
       "severity": "CRITICAL",
       "has_nuclei_template": true,
       "is_in_kev": false,
@@ -59,8 +59,8 @@
       "actionability_score": 9
     },
     {
-      "cve_id": "CVE-2026-110447",
-      "title": "Collabora Built-in CODE Server < 26.4.303 - OS Command Injection (@alex700)",
+      "cve_id": "CVE-2026-102895",
+      "title": "GPUStack < 2.2.0 - Authentication Bypass (@buurosaaqi-dev)",
       "severity": "CRITICAL",
       "has_nuclei_template": true,
       "is_in_kev": false,
@@ -68,8 +68,8 @@
       "actionability_score": 9
     },
     {
-      "cve_id": "CVE-2026-109619",
-      "title": "PHP 8.2 < 8.2.35, 8.3 < 8.3.36, 8.4 < 8.4.27, 8.5 < 8.5.12 - Use-After-Free Remote Code Execution (@comradezephyr (Abdullah Shahid))",
+      "cve_id": "CVE-2026-59310",
+      "title": "VMware vCenter Server - Remote Code Execution (@DhiyaneshDk)",
       "severity": "CRITICAL",
       "has_nuclei_template": true,
       "is_in_kev": false,
@@ -77,8 +77,8 @@
       "actionability_score": 9
     },
     {
-      "cve_id": "CVE-2026-105740",
-      "title": "Langflow 1.8.3 and 1.9.0 - Authenticated MCP Stdio Command Execution (@alex700)",
+      "cve_id": "CVE-2026-59309",
+      "title": "VMware vCenter Server - Authentication Bypass (@DhiyaneshDk)",
       "severity": "CRITICAL",
       "has_nuclei_template": true,
       "is_in_kev": false,
@@ -86,8 +86,8 @@
       "actionability_score": 9
     },
     {
-      "cve_id": "CVE-2026-105134",
-      "title": "AhsayCBS <= 10.3.4 - Unauthenticated RCE (@0x_Akoko)",
+      "cve_id": "CVE-2026-56164",
+      "title": "Microsoft Office SharePoint - Broken Access Control (@0x_Akoko)",
       "severity": "CRITICAL",
       "has_nuclei_template": true,
       "is_in_kev": false,
@@ -95,8 +95,8 @@
       "actionability_score": 9
     },
     {
-      "cve_id": "CVE-2026-102764",
-      "title": "BeyondTrust Remote Support <= 26.2.3 - Origin Validation File Upload (@DhiyaneshDk)",
+      "cve_id": "CVE-2026-50522",
+      "title": "Microsoft SharePoint Server - Remote Code Execution (@DhiyaneshDk)",
       "severity": "CRITICAL",
       "has_nuclei_template": true,
       "is_in_kev": false,
@@ -104,8 +104,8 @@
       "actionability_score": 9
     },
     {
-      "cve_id": "CVE-2026-102489",
-      "title": "Zammad 6.3.0-6.5.4 - Session Hijacking & Remote Code Execution (@Abdullah Shahid (comradezephyr))",
+      "cve_id": "CVE-2026-49980",
+      "title": "Rclone 1.46.0 - 1.74.2 - Unauthenticated Arbitrary File Read via --rc-serve (@s4e-io)",
       "severity": "CRITICAL",
       "has_nuclei_template": true,
       "is_in_kev": false,
@@ -113,8 +113,8 @@
       "actionability_score": 9
     },
     {
-      "cve_id": "CVE-2026-97359",
-      "title": "Rejetto HTTP File Server 2.4.x - Template Injection (@kosoyyagent)",
+      "cve_id": "CVE-2026-49869",
+      "title": "Kestra OSS - Authentication Bypass via Configs Path Suffix (@theamanrawat)",
       "severity": "CRITICAL",
       "has_nuclei_template": true,
       "is_in_kev": false,
@@ -123,8 +123,8 @@
     }
   ],
   "nuclei_release": {
-    "tag": "v10.5.2",
-    "name": "Nuclei Templates v10.5.2 - Release Notes"
+    "tag": "v10.5.3",
+    "name": "Nuclei Templates v10.5.3 - Release Notes"
   },
   "cisa_kev_recent": [
     {
@@ -3655,6 +3655,20 @@
   },
   "hacking_news": [
     {
+      "title": "Switzerland Confirms AI-Assisted Cyberattacks Breached Critical Infrastructure Operators",
+      "link": "https://thehackernews.com/2026/11/switzerland-confirms-ai-assisted.html",
+      "pub_date": "Fri, 27 Nov 2026 11:34:20 +0530",
+      "summary": "Attackers using AI agents have broken into computer systems at Swiss organizations in four of five confirmed attacks, the first such cases in the country, the country's cybersecurity agency said yesterday. Three of the attacks targeted critical infrastructure operators, and two of those succeeded, with no major disruptions reported. The victims have not been named, and it is not known who is",
+      "source": "The Hacker News"
+    },
+    {
+      "title": "Unpatched Cacti Zero-Day Enables RCE in Just Four HTTP Requests via Guest Access",
+      "link": "https://thehackernews.com/2026/11/unpatched-cacti-zero-day-enables-rce-in.html",
+      "pub_date": "Fri, 27 Nov 2026 11:18:20 +0530",
+      "summary": "Details have emerged about a new zero-day vulnerability in Cacti, an open-source network monitoring tool, that could be exploited to achieve remote code execution. The proof-of-concept (PoC) exploit, which has yet to be assigned a CVE identifier, has been tracked as 4HTTP2SHELL and 4HTTP2ROOT. \"I found a path from a fresh, unauthenticated HTTP session to command execution as the Cacti server",
+      "source": "The Hacker News"
+    },
+    {
       "title": "ThreatsDay: 10M NGINX Services at Risk, 250+ Malicious Extensions, AI Server Hijacking + 17 More Stories",
       "link": "https://thehackernews.com/2026/11/threatsday-250-rogue-extensions-10m.html",
       "pub_date": "Fri, 27 Nov 2026 01:09:57 +0530",
@@ -3666,20 +3680,6 @@
       "link": "https://thehackernews.com/2026/11/north-korea-linked-polinrider-poisons.html",
       "pub_date": "Thu, 26 Nov 2026 20:43:41 +0530",
       "summary": "The threat actors behind the PolinRider campaign have been observed planting a Python loader in GitHub repositories, as evidence emerges that the activity may have started as far back as February 2025. \"The loader hides in a small utils package or in conftest.py,\" SafeDep said in a report published this week. \"When Python imports the file, the loader reads the newest transaction that an",
-      "source": "The Hacker News"
-    },
-    {
-      "title": "Most Wanted: The Phishing Kits and Techniques Getting Past Security Controls",
-      "link": "https://thehackernews.com/2026/11/most-wanted-phishing-kits-and.html",
-      "pub_date": "Thu, 26 Nov 2026 16:27:55 +0530",
-      "summary": "Every phishing attack has to get past email security, web filtering, and safe browsing before it reaches an employee. Some kits manage that far more often than others, and those are the kits that security teams need to know about. At Push Security, we measure this as breakthrough rate: The share of attacks that get past email security, web gateways, and safe browsing to reach the user. How an",
-      "source": "The Hacker News"
-    },
-    {
-      "title": "1Password Hacked, Customer Data and Source Code Stolen in GitHub Account Breach",
-      "link": "https://thehackernews.com/2026/11/1password-hacked-customer-data-and.html",
-      "pub_date": "Thu, 26 Nov 2026 16:27:25 +0530",
-      "summary": "Popular password management software 1Password on Wednesday disclosed a security incident involving its backend systems that led to the unauthorized access of some customer information, but emphasized that customer password vaults and other secrets were not accessed. \"While we took immediate steps to contain the incident, the attacker gained access to some of our backend systems and accessed a",
       "source": "The Hacker News"
     },
     {
